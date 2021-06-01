@@ -11,3 +11,7 @@
 ## Dag
 * [ ] Hexa para decimal 
 * [ ] Hexa para binário
+
+## Marco
+* [ ] Tratamento de entrada
+* [ ] Integração das funções
