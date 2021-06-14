@@ -5,8 +5,8 @@
 * [ ] Binário para hexa
 
 ## Jayro
-* [ ] Decimal para binário 
-* [ ] Decimal para hexa
+* [v] Decimal para binário 
+* [v] Decimal para hexa
 
 ## Dag
 * [ ] Hexa para decimal 
