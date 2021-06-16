@@ -105,10 +105,10 @@ convertBin:
 		mflo $s7
 		mfhi $t3
 		
-		addi $sp, $sp, -1
+		addi $sp, $sp, -1	#salva para stack cada byte do módulo
 		sb $t3,($sp)
 		
-		addi $t4, $t4, 1
+		addi $t4, $t4, 1	#incrementa para usarmos depois quando formos printar a string de trás para frente
 		
 		bnez $s7, ateZerarQuotient
 	
@@ -117,11 +117,11 @@ convertBin:
 	la $a0, resBin
 	syscall
 		
-	ateFinalString:
-		lb $t3,($sp)
+	ateFinalString:			#escreve a string de trás para frente
+		lb $t3,($sp)		#carrega da stack
 		addi $sp, $sp, 1
 	
-		addiu $t4, $t4, -1
+		addiu $t4, $t4, -1	#contador--
 	
 		li $v0, 1		#printar valor de bin
 		move $a0, $t3
@@ -132,12 +132,12 @@ convertBin:
 	j fimProg
 	
 tratarLetra:
-	bgt $t5, 58, tratarLetra	#se o valor ascii for maior que 58 (para letras)
+	bgt $t5, 58, ehLetra		#se o valor ascii for maior que 58 (para letras)
 	ble $t5, 48 , numeroInvalido 	#checa se é número realmente
 	addi $t5, $t5, -48		#caso tenhamos números
 	
 	j endtratarLetra
-	
+	ehLetra:
 	ble $t5, 96 , numeroInvalido 	#checa se é letra realmente
 	bgt $t5, 102, numeroInvalido	#checa se as letras são a,b,c,d,e,f
 	addi $t5, $t5, -87 		#caso tenhamos letra
