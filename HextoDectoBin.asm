@@ -55,7 +55,6 @@ main:
 convertDec:
 	addi $t0, $zero, 0 	#Inicia index no 0
 	enquantoAindaTemNum:
-		beq $t0, 9, exit		#caso atinja o final do array va para exit
 		
 		lb $t5, userInput($t0)		#carrega um byte do array para $t6
 			beq $t5, '\n', exit	
@@ -89,7 +88,7 @@ convertDec:
 	la $a0, resDec
 	syscall
 	
-	li $v0, 1		#printar valor de dec
+	li $v0, 36		#printar valor de dec unsigned
 	move $a0, $s7
 	syscall
 
@@ -100,12 +99,12 @@ convertBin:
 	addi $t0, $zero, 0 	#Inicia index no 0
 	addi $t2, $zero, 2	#da valor 2 para dividir
 	ateZerarQuotient:
-		div $s7, $t2		#divide por 2 para achar cada digito  do binário
- 
+		divu $s7, $t2		#divide por 2 para achar cada digito  do binário
+ 		
 		mflo $s7
 		mfhi $t3
 		
-		addi $sp, $sp, -1	#salva para stack cada byte do módulo
+		addiu $sp, $sp, -1	#salva para stack cada byte do módulo
 		sb $t3,($sp)
 		
 		addi $t4, $t4, 1	#incrementa para usarmos depois quando formos printar a string de trás para frente
@@ -121,7 +120,7 @@ convertBin:
 		lb $t3,($sp)		#carrega da stack
 		addi $sp, $sp, 1
 	
-		addiu $t4, $t4, -1	#contador--
+		addi $t4, $t4, -1	#contador--
 	
 		li $v0, 1		#printar valor de bin
 		move $a0, $t3
@@ -133,6 +132,7 @@ convertBin:
 	
 tratarLetra:
 	bgt $t5, 58, ehLetra		#se o valor ascii for maior que 58 (para letras)
+	
 	ble $t5, 48 , numeroInvalido 	#checa se é número realmente
 	addi $t5, $t5, -48		#caso tenhamos números
 	
