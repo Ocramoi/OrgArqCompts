@@ -16,8 +16,8 @@
 	#4.5 - Se N não for -1, voltar para #4.1
 #5 - Encerrar o programa
 
-#Por conta de como é implementado, ele sempre vai imprimir 32 bits, então o número 1, por exemplo, sairia como:
-#00000000000000000000000000000001
+#Por conta de como é implementado, ele sempre vai imprimir 8 hexadecits(?), então o número 1, por exemplo, sairia como:
+#0x00000001
 
 #OBS: Armazenar o número que queremos transformar no registrador $a1, já que $a0 será usado para impressão
 decToHex:
@@ -32,7 +32,7 @@ decToHex:
 	
  	#do{
  	inicioLoop:
-		srlv $a0, $t0, $t1  	#parcial = numeroGrande / 2^i       
+		srlv $a0, $t0, $t1  	#parcial = numeroGrande / 2^i, sendo que i é sempre um multiplo de 4   
 		and $a0, $a0, $t2	#parcial = parcial%16
 		li $v0, 1 #Para a syscall
 		bge $a0, 10, printString#if(parcial> 9)goto printString 
