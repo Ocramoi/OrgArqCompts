@@ -250,7 +250,7 @@ printStringBinHex:
 	li $v0, 11 # Print $v0 como caracter
 	j returnFromPrintStringBinHex
 
-## Entrada binária ##
+## Entrada decimal ##
 
 # Lê valor decimal
 entradaDec:
