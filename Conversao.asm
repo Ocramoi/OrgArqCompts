@@ -8,7 +8,6 @@
 	valorEntrada2: .asciiz "Valor binário a ser lido: "
 	valorEntrada10: .asciiz "Valor decimal a ser lido: "
 	valorEntrada16: .asciiz "Valor hexa a ser lido [para letras, utilize minúsculas]: "
-	#debug: .asciiz ":::::: "
 	quebraDeLinha: .asciiz "\n"
 	promptConvertido: .asciiz "Valor convertido: "
 	hexadec: .asciiz "0x"
