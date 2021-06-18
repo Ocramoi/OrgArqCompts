@@ -3,7 +3,7 @@
 	msg_input: .asciiz "Digite um numero na base binaria:"
 	print_decimal: .asciiz "Decimal convertido:"
 	hexadec: .asciiz "\n0x"	
-	buffer: .space 32	#can convert until 2,147,483,647 (max value for 4bytes int)
+	buffer: .space 33	#can convert until 2,147,483,647 (max value for 4bytes int)
 .text
 .globl main
 
@@ -14,7 +14,7 @@ main:
 	
 readInput:			#allocates memory and reads string input 
 	la $a0, buffer		
-	li $a1, 32
+	li $a1, 33
 	li $v0, 8		#read input string
 	syscall 		#call for I/O
 		
@@ -59,12 +59,12 @@ binToHex:
 	syscall 		#printf("0x")
 	
 startLoop:
-	srlv $a0, $t0, $t1  	#parcial = numeroGrande / 2^i, sendo que i é sempre um multiplo de 4   
+	srlv $a0, $t0, $t1  	#parcial = numeroGrande / 2^i, sendo que i Ã© sempre um multiplo de 4   
 	and $a0, $a0, $t2	#parcial = parcial%16
 	li $v0, 1 		#Para a syscall
 	bge $a0, 10, printString#if(parcial> 9)goto printString 
 returnFromPrintString:		#prints parcial as a number, depending on its value (<10 or >10)
-	syscall			#imprime parcial como numero ou caractere dependendo se parcial é menor que 10 ou nao
+	syscall			#imprime parcial como numero ou caractere dependendo se parcial Ã© menor que 10 ou nao
 	addi $t1, $t1, -4	#i = i-4;
 	bne $t1, -4, startLoop	#}while(i >= 0)
 	
@@ -72,7 +72,7 @@ returnFromPrintString:		#prints parcial as a number, depending on its value (<10
 	 
 	#fix values from $a0 and $v0 to print in hex(10 = A, 11 = B, 12 = C, 13 = D, 14 = E, 15 = F)
 printString:
-	addi $a0, $a0, 55 #A é 65 no ASCII. $a0 ==10 é pra ser A, entao somamos 55 no valor de $a0 e imprimimos como caracter
+	addi $a0, $a0, 55 #A Ã© 65 no ASCII. $a0 ==10 Ã© pra ser A, entao somamos 55 no valor de $a0 e imprimimos como caracter
 	li $v0, 11 #print $v0 as a char, instead of a number
 	j returnFromPrintString
 	
