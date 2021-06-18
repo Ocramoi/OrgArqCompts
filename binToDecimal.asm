@@ -2,7 +2,7 @@
 	.align 0
 	msg_input: .asciiz "Digite um numero na base binaria:"
 	print_decimal: .asciiz "Decimal convertido:"
-	buffer: .space 32	#can convert until 2,147,483,647 (max value for 4bytes int)
+	buffer: .space 33	#can convert until 4,294,967,295 (max value for 4bytes unsigned int)
 .text
 .globl main
 
@@ -13,7 +13,7 @@ main:
 	
 readInput:			#allocates memory and reads string input 
 	la $a0, buffer		
-	li $a1, 32
+	li $a1, 33
 	li $v0, 8		#read input string
 	syscall 		#call for I/O
 		
@@ -27,6 +27,7 @@ convertToInteger:
 convertByte: 
 
 	lb $t2, ($t3)		#loads first byte of string
+	beq $t2, $zero, printDecimal
 	subi $t2, $t2, 48	#transform ascii into 0 or 1
 	beq $t2, 0, isZero	#verify if it is 0
 	beq $t2, 1, isOne	#verify if it is 1
@@ -56,7 +57,7 @@ printDecimal:
 	syscall
 	
 	move $a0, $t9		#actual converted decimal value
-	li $v0, 1
+	li $v0, 36
 	syscall
 	j exit
 	
