@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Testes de entrada binária}{2}%
+\contentsline {section}{\numberline {2}Testes de entrada decimal}{6}%
+\contentsline {section}{\numberline {3}Testes de entrada hexadecimal}{10}%
+\contentsline {section}{\numberline {4}Tratamento de erro de entrada}{14}%
